@@ -19,8 +19,8 @@ const PORT = process.env.PORT || 3000;
 // Parse request body and verifies incoming requests using discord-interactions package
 app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
-// Store for in-progress games. In production, you'd want to use a DB
-const activeGames = {};
+
+const ss_record = [];
 
 /**
  * Interactions endpoint URL where Discord will send HTTP requests
@@ -51,7 +51,23 @@ app.post('/interactions', async function (req, res) {
         const userId = req.body.member.user.id;
         const pattern = req.body.data.options[0].value;
         
-        message(res, pattern);
+        const url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed`;
+        const response = await fetch(url);
+        const html = await response.text();
+        const dom = new JSDOM(html);
+        const imgElement = dom.window.document.querySelector('img');
+
+
+        if (imgElement) {
+          //save pattern in memory
+          ss_record.push('${userId}-${pattern}');
+          
+          const gifUrl = imgElement.src;
+          message(res, gifUrl);
+        } else {
+          message(res, 'GIF not found.');
+        }
+
         break;
     }
   }

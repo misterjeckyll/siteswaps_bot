@@ -43,23 +43,20 @@ app.post('/interactions', async function (req, res) {
     
     switch (name){
       case 'test':
-        test();
+        message(res, 'hello world ' + getRandomEmoji());
         break;
-    }
-
-    // "test" command
-    if (name === 'test') {
-      // Send a message into the channel where command was triggered from
-      return res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          // Fetches a random emoji to send from a helper function
-          content: 'hello world ' + getRandomEmoji(),
-        },
-      });
     }
   }
 });
+
+function message(res, content){
+  return res.send({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: content,
+        },
+  });
+}
 
 app.listen(PORT, () => {
   console.log('Listening on port', PORT);

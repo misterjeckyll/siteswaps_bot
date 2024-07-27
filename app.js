@@ -40,6 +40,12 @@ app.post('/interactions', async function (req, res) {
    */
   if (type === InteractionType.APPLICATION_COMMAND) {
     const { name } = data;
+    
+    switch (name){
+      case 'test':
+        test();
+        break;
+    }
 
     // "test" command
     if (name === 'test') {

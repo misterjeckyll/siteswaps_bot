@@ -54,6 +54,7 @@ app.post('/interactions', async function (req, res) {
         const url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed`;
         const response = await fetch(url);
         const html = await response.text();
+        console.log(html);
         const dom = new JSDOM(html);
         const imgElement = dom.window.document.querySelector('img');
 
@@ -63,9 +64,10 @@ app.post('/interactions', async function (req, res) {
           ss_record.push('${userId}-${pattern}');
           
           const gifUrl = imgElement.src;
+          message(res, `Génération du Siteswaps ${pattern}`);
           message(res, gifUrl);
         } else {
-          message(res, 'GIF not found.');
+          message(res, `Pattern ${pattern} incorrect`);
         }
 
         break;

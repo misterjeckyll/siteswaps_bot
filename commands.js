@@ -32,7 +32,7 @@ const siteswaps = new SlashCommandBuilder()
 	.setDescription("Génère un gif d'un siteswaps, basé sur : https://jugglinglab.org/html/animinfo.html")
 	.addStringOption(option =>
 		option.setName('pattern')
-			.setDescription('Le pattern à utiliser ex: <3p|3p> ou 333')
+			.setDescription('Le pattern à utiliser ex: <3p|3p> ou 333 ou (4,2x)(2x,4)')
       .setRequired(true));
 
 

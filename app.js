@@ -9,6 +9,8 @@ import {
 } from 'discord-interactions';
 import { VerifyDiscordRequest, getRandomEmoji, DiscordRequest } from './utils.js';
 import { getShuffledOptions, getResult } from './game.js';
+import fetch from 'node-fetch';
+import { JSDOM } from 'jsdom';
 
 // Create an express app
 const app = express();
@@ -44,6 +46,12 @@ app.post('/interactions', async function (req, res) {
     switch (name){
       case 'test':
         message(res, 'hello world ' + getRandomEmoji());
+        break;
+      case 'ss':
+        const userId = req.body.member.user.id;
+        const pattern = req.body.data.options[0].value;
+        
+        message(res, pattern);
         break;
     }
   }

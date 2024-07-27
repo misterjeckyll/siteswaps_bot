@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { getRPSChoices } from './game.js';
 import { capitalize, InstallGlobalCommands } from './utils.js';
-const { SlashCommandBuilder } = require('discord.js');
+import { SlashCommandBuilder } from 'discord.js';
 
 // Get the game choices from game.js
 function createCommandChoices() {
@@ -28,7 +28,7 @@ const TEST_COMMAND = {
 
 
 const siteswaps = new SlashCommandBuilder()
-	.setName('Siteswaps')
+	.setName('ss')
 	.setDescription("Génère un gif d'un siteswaps, basé sur : https://jugglinglab.org/html/animinfo.html")
 	.addStringOption(option =>
 		option.setName('pattern')
@@ -36,8 +36,8 @@ const siteswaps = new SlashCommandBuilder()
       .setRequired(true));
 
 
-const SITESWAPS_COMMAND = siteswaps.ToJson();
+//const SITESWAPS_COMMAND = siteswaps.toJson();
 
-const ALL_COMMANDS = [TEST_COMMAND, SITESWAPS_COMMAND];
+const ALL_COMMANDS = [TEST_COMMAND, siteswaps];
 
 InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS);

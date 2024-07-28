@@ -11,7 +11,7 @@ import { VerifyDiscordRequest, getRandomEmoji, DiscordRequest } from './utils.js
 import { getShuffledOptions, getResult } from './game.js';
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
-import { MessageEmbed } from 'discord.js';
+import MessageEmbed from 'discord.js';
 
 // Create an express app
 const app = express();
@@ -64,7 +64,16 @@ app.post('/interactions', async function (req, res) {
           ss_record.push('${userId}-${pattern}');
           
           const gifUrl = imgElement.src;
-          message(res, `Génération du Siteswaps ${pattern}:\n${gifUrl}`);
+          
+          
+          const embed = new MessageEmbed().setImage(gifUrl);
+          await res.send({
+            type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+            data: {
+              content: `Génération du Siteswaps ${pattern}`,
+              embeds: [embed],
+            },
+          });
           
         } else {
           message(res, `Pattern ${pattern} incorrect`);

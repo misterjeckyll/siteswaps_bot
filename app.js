@@ -11,7 +11,8 @@ import { VerifyDiscordRequest, getRandomEmoji, DiscordRequest } from './utils.js
 import { getShuffledOptions, getResult } from './game.js';
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder} from 'discord.js';
+
 
 // Create an express app
 const app = express();
@@ -65,7 +66,8 @@ app.post('/interactions', async function (req, res) {
           ss_record.push('${userId}-${pattern}');
           
           const gifUrl = imgElement.src;
-          
+          const user = await client.fetch_user(userId);
+          const avatarUrl = user.displayAvatarURL({ format: 'png', dynamic: true });
           
           const siteswap_embed = new EmbedBuilder()
           .setColor(0x0099FF)

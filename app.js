@@ -73,15 +73,10 @@ app.post('/interactions', async function (req, res) {
           
           const siteswap_embed = new EmbedBuilder()
           .setColor(0x0099FF)
-          .setTitle(`Génération du Siteswaps ${pattern}`)
+          .setTitle(`Génération d'un Siteswaps`)
           .setURL('https://jugglinglab.org/html/animinfo.html')
           .setAuthor({ name: username, iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
-          .setDescription('Some description here')
-          //.setThumbnail('https://i.imgur.com/AfFp7pu.png')
-          .addFields(
-            { name: 'Regular field title', value: 'Some value here' },
-            { name: '\u200B', value: '\u200B' },
-          )
+          .setDescription(pattern)
           .setImage(gifUrl)
           .setTimestamp()
           .setFooter({ text: 'Basé sur le générateur jugglinglab.org', iconURL: 'https://i.imgur.com/AfFp7pu.png' });

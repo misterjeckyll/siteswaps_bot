@@ -34,7 +34,7 @@ const siteswaps = new SlashCommandBuilder()
 		option.setName('pattern')
 			.setDescription('Le pattern à utiliser ex: <3p|3p> ou 333 ou (4,2x)(2x,4)')
       .setRequired(true))
-  .addFloatOption(option => option.setName('Dwell').setDescription('Nombre de battements d''n catch, entre 0.0 et 2.0'));
+  .addFloatOption(option => option.setName('Dwell').setDescription('Nombre de battements d\'un catch, entre 0.0 et 2.0').setRequired(false));
 
 
 //const SITESWAPS_COMMAND = siteswaps.toJson();

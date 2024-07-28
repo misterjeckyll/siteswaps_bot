@@ -52,6 +52,8 @@ app.post('/interactions', async function (req, res) {
         break;
       case 'ss':
         const userId = req.body.member.user.id;
+        const username = req.body.member.user.global_name;
+        console.log(req.body.member.user);
         const pattern = req.body.data.options[0].value;
         
         const url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed`;
@@ -66,14 +68,14 @@ app.post('/interactions', async function (req, res) {
           ss_record.push('${userId}-${pattern}');
           
           const gifUrl = imgElement.src;
-          const user = await client.fetch_user(userId);
-          const avatarUrl = user.displayAvatarURL({ format: 'png', dynamic: true });
+          //const user = await client.fetch_user(userId);
+          //const avatarUrl = user.displayAvatarURL({ format: 'png', dynamic: true });
           
           const siteswap_embed = new EmbedBuilder()
           .setColor(0x0099FF)
-          .setTitle('Génération du Siteswaps ${pattern}' )
+          .setTitle(`Génération du Siteswaps ${pattern}`)
           .setURL('https://jugglinglab.org/html/animinfo.html')
-          .setAuthor({ name: userId, iconURL: '', url: 'https://discord.js.org' })
+          .setAuthor({ name: username, iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
           .setDescription('Some description here')
           //.setThumbnail('https://i.imgur.com/AfFp7pu.png')
           .addFields(
@@ -82,7 +84,7 @@ app.post('/interactions', async function (req, res) {
           )
           .setImage(gifUrl)
           .setTimestamp()
-          .setFooter({ text: 'Basé sur le générateur jugglinglab.org', iconURL: '' });
+          .setFooter({ text: 'Basé sur le générateur jugglinglab.org', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
           
           // content: `Génération du Siteswaps ${pattern}`,
           

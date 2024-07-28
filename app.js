@@ -11,7 +11,7 @@ import { VerifyDiscordRequest, getRandomEmoji, DiscordRequest } from './utils.js
 import { getShuffledOptions, getResult } from './game.js';
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
-import MessageEmbed from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 // Create an express app
 const app = express();
@@ -22,6 +22,7 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
 
 const ss_record = [];
+
 
 /**
  * Interactions endpoint URL where Discord will send HTTP requests
@@ -66,12 +67,30 @@ app.post('/interactions', async function (req, res) {
           const gifUrl = imgElement.src;
           
           
-          const embed = new MessageEmbed().setImage(gifUrl);
+          const siteswap_embed = new EmbedBuilder()
+          .setColor(0x0099FF)
+          .setTitle('Some title')
+          .setURL('https://discord.js.org/')
+          .setAuthor({ name: 'Some name', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+          .setDescription('Some description here')
+          .setThumbnail('https://i.imgur.com/AfFp7pu.png')
+          .addFields(
+            { name: 'Regular field title', value: 'Some value here' },
+            { name: '\u200B', value: '\u200B' },
+            { name: 'Inline field title', value: 'Some value here', inline: true },
+            { name: 'Inline field title', value: 'Some value here', inline: true },
+          )
+          .addFields({ name: 'Inline field title', value: 'Some value here', inline: true })
+          .setImage('https://i.imgur.com/AfFp7pu.png')
+          .setTimestamp()
+          .setFooter({ text: 'Some footer text here', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
+          
+          // content: `Génération du Siteswaps ${pattern}`,
+          
           await res.send({
             type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
             data: {
-              content: `Génération du Siteswaps ${pattern}`,
-              embeds: [embed],
+              embeds: [siteswap_embed],
             },
           });
           

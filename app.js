@@ -55,6 +55,10 @@ app.post('/interactions', async function (req, res) {
         const username = req.body.member.user.global_name;
         const pattern = req.body.data.options[0].value;
         let dwell = req.body.data.options[1];
+        let prop = req.body.data.options[2];
+        if (prop)
+        
+        
         let dwell_value;
         if (dwell!= undefined){
           dwell_value = dwell.value;
@@ -65,6 +69,9 @@ app.post('/interactions', async function (req, res) {
         }
         
         const url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed;dwell=${dwell_value}`;
+        if (prop != undefined){
+          url+=`prop=${prop.value}`;
+        }
         console.log(url);
         const response = await fetch(url);
         const html = await response.text();

@@ -54,8 +54,10 @@ app.post('/interactions', async function (req, res) {
         const userId = req.body.member.user.id;
         const username = req.body.member.user.global_name;
         const pattern = req.body.data.options[0].value;
+
         let dwell = req.body.data.options[1];
         let prop = req.body.data.options[2];
+        let stereo = 
         
         
         let dwell_value;

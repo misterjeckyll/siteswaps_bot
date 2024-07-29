@@ -56,7 +56,6 @@ app.post('/interactions', async function (req, res) {
         const pattern = req.body.data.options[0].value;
         let dwell = req.body.data.options[1];
         let prop = req.body.data.options[2];
-        if (prop)
         
         
         let dwell_value;

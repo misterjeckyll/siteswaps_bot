@@ -37,9 +37,7 @@ const siteswaps = new SlashCommandBuilder()
   .addNumberOption(option => option.setName('dwell').setDescription("Nombre de battements d'un catch, entre 0.0 et 2.0"))
   .addStringOption(option => option.setName('prop').setDescription("type d'objet lancé").addChoices(
     {name:"Balles",value:"ball"},
-    {name:"Anneaux",value:"ring"},
-    {name:""}))
-;
+    {name:"Anneaux",value:"ring"}));
 
 
 //const SITESWAPS_COMMAND = siteswaps.toJson();

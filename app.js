@@ -67,9 +67,9 @@ app.post('/interactions', async function (req, res) {
           dwell_value = "1.3";
         }
         
-        const url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed;dwell=${dwell_value}`;
+        let url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed;dwell=${dwell_value}`;
         if (prop != undefined){
-          url+=`prop=${prop.value}`;
+          url+=`;prop=${prop.value}`;
         }
         console.log(url);
         const response = await fetch(url);

@@ -110,6 +110,12 @@ app.post('/interactions', async function (req, res) {
           if(dwell!=undefined){
             siteswap_embed.addFields({ name: "Dwell :", value: dwell_value, inline: true })
           }
+          if(prop != undefined){
+            siteswap_embed.addFields({ name: "Prop :", value: prop.value, inline: true })
+          }
+          if(camangle != undefined){
+            siteswap_embed.addFields({ name: "Camera angle :", value: camangle.value, inline: true })
+          }
           // content: `Génération du Siteswaps ${pattern}`,
           
           await res.send({

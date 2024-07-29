@@ -56,8 +56,9 @@ app.post('/interactions', async function (req, res) {
         const pattern = req.body.data.options[0].value;
         let dwell = req.body.data.options[1];
         if (dwell!= undefined){
-          
-          dwell = (dwell.value).toFixed(1).toString();
+          let value = dwell.value;
+          value = (value>=2.0)?1.9:(value<=0)?0.1:value;
+          dwell = (value).toFixed(1).toString();
         }else{
           dwell = "1.3";
         }
@@ -88,6 +89,9 @@ app.post('/interactions', async function (req, res) {
           .setTimestamp()
           .setFooter({ text: 'Basé sur le générateur jugglinglab.org', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
           
+          if(dwell!=undefined){
+            siteswap_embed.addFields({ name: 'Option dwelltime', value: dwell, inline: true })
+          }
           // content: `Génération du Siteswaps ${pattern}`,
           
           await res.send({

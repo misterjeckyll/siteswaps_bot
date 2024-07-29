@@ -56,9 +56,10 @@ app.post('/interactions', async function (req, res) {
         const pattern = req.body.data.options[0].value;
         let dwell = req.body.data.options[1];
         if (dwell!= undefined){
-          dwell = dwell.value;
+          
+          dwell = (dwell.value).toFixed(1).toString();
         }else{
-          dwell = 1.3;
+          dwell = "1.3";
         }
         
         const url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed;dwell=${dwell}`;
@@ -97,7 +98,7 @@ app.post('/interactions', async function (req, res) {
           });
           
         } else {
-          message(res, `Pattern ${pattern} incorrect`);
+          message(res, `Commande ${url} incorrecte`);
         }
 
         break;

@@ -57,7 +57,10 @@ app.post('/interactions', async function (req, res) {
 
         let dwell = req.body.data.options[1];
         let prop = req.body.data.options[2];
-        let stereo = 
+        let camangle = req.body.data.options[3];
+        let stereo = req.body.data.options[4];
+        let stereo_value;
+        
         
         
         let dwell_value;
@@ -72,6 +75,12 @@ app.post('/interactions', async function (req, res) {
         let url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed;dwell=${dwell_value}`;
         if (prop != undefined){
           url+=`;prop=${prop.value}`;
+        }
+        if (stereo!=undefined){
+          url+=`;stereo=${stereo.value}`;
+        }
+        if (camangle != undefined){
+          url+=`;camangle=${camangle.value}`;
         }
         console.log(url);
         const response = await fetch(url);

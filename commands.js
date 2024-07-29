@@ -37,7 +37,9 @@ const siteswaps = new SlashCommandBuilder()
   .addNumberOption(option => option.setName('dwell').setDescription("Nombre de battements d'un catch, entre 0.0 et 2.0"))
   .addStringOption(option => option.setName('prop').setDescription("type d'objet lancé").addChoices(
     {name:"Balles",value:"ball"},
-    {name:"Anneaux",value:"ring"}));
+    {name:"Anneaux",value:"ring"}))
+  .addStringOption(option => option.setName('camangle').setDescription("Angle caméra (hauteur, angle); ex: (0,110) ou (10,75)"))
+  .addBooleanOption(option => option.setName('Stereo').setDescription("Activer l'affichage stereoscopique"));
 
 
 //const SITESWAPS_COMMAND = siteswaps.toJson();

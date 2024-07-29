@@ -34,7 +34,12 @@ const siteswaps = new SlashCommandBuilder()
 		option.setName('pattern')
 			.setDescription('Le pattern à utiliser ex: <3p|3p> ou 333 ou (4,2x)(2x,4)')
       .setRequired(true))
-  .addNumberOption(option => option.setName('dwell').setDescription("Nombre de battements d'un catch, entre 0.0 et 2.0").setRequired(false));
+  .addNumberOption(option => option.setName('dwell').setDescription("Nombre de battements d'un catch, entre 0.0 et 2.0"))
+  .addStringOption(option => option.setName('prop').setDescription("type d'objet lancé").addChoices(
+    {name:"Balles",value:"ball"},
+    {name:"Anneaux",value:"ring"},
+    {name:""}))
+;
 
 
 //const SITESWAPS_COMMAND = siteswaps.toJson();

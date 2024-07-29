@@ -53,10 +53,11 @@ app.post('/interactions', async function (req, res) {
       case 'ss':
         const userId = req.body.member.user.id;
         const username = req.body.member.user.global_name;
-        console.log(req.body.member.user);
         const pattern = req.body.data.options[0].value;
+        const dwell = req.body.data.options[1];
+        dwell ? if (dwell != undefined)  = dwell.value;
         
-        const url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed`;
+        const url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed;dwell=${dwell}`;
         const response = await fetch(url);
         const html = await response.text();
         const dom = new JSDOM(html);
@@ -65,7 +66,7 @@ app.post('/interactions', async function (req, res) {
 
         if (imgElement) {
           //save pattern in memory
-          ss_record.push('${userId}-${pattern}');
+          //ss_record.push('${userId}-${pattern}');
           
           const gifUrl = imgElement.src;
           //const user = await client.fetch_user(userId);

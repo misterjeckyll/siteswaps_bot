@@ -55,15 +55,16 @@ app.post('/interactions', async function (req, res) {
         const username = req.body.member.user.global_name;
         const pattern = req.body.data.options[0].value;
         let dwell = req.body.data.options[1];
+        let dwell_value;
         if (dwell!= undefined){
-          let value = dwell.value;
-          value = (value>=2.0)?1.9:(value<=0)?0.1:value;
-          dwell = (value).toFixed(1).toString();
+          dwell_value = dwell.value;
+          dwell_value = (dwell_value>=2.0)?1.9:(dwell_value<=0)?0.1:dwell_value;
+          dwell_value = (dwell_value).toFixed(1).toString();
         }else{
-          dwell = "1.3";
+          dwell_value = "1.3";
         }
         
-        const url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed;dwell=${dwell}`;
+        const url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed;dwell=${dwell_value}`;
         console.log(url);
         const response = await fetch(url);
         const html = await response.text();
@@ -90,7 +91,7 @@ app.post('/interactions', async function (req, res) {
           .setFooter({ text: 'Basé sur le générateur jugglinglab.org', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
           
           if(dwell!=undefined){
-            siteswap_embed.addFields({ name: 'Option dwelltime', value: dwell, inline: true })
+            siteswap_embed.addFields({ name: "Dwell :", value: dwell_value, inline: true })
           }
           // content: `Génération du Siteswaps ${pattern}`,
           

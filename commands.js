@@ -40,7 +40,7 @@ const siteswaps = new SlashCommandBuilder()
     {name:"Anneaux",value:"ring"}))
   .addStringOption(option => option.setName('camangle').setDescription("Angle caméra (hauteur, angle); ex: (0,110) ou (10,75)"))
   .addBooleanOption(option => option.setName('stereo').setDescription("Activer l'affichage stereoscopique"))
-  .addStringOption(option => option.setName('hands').setDescription());
+  .addStringOption(option => option.setName('hands').setDescription("Coordonnées de mouvement des mains"));
 
 
 //const SITESWAPS_COMMAND = siteswaps.toJson();

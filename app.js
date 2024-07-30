@@ -59,19 +59,18 @@ app.post('/interactions', async function (req, res) {
         let prop = req.body.data.options[2];
         let camangle = req.body.data.options[3];
         let stereo = req.body.data.options[4];
+        let hands = req.body.data.options[5];
         let stereo_value;
         
+
+        let url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed`;
         
-        
-        let dwell_value;
         if (dwell!= undefined){
-          dwell_value = dwell.value;
-          dwell_value = (dwell_value>=2.0)?1.9:(dwell_value<=0)?0.1:dwell_value;
-          dwell_value = parseFloat(dwell_value).toFixed(1);
+          let dwell_value = dwell.value;
+          //dwell_value = (dwell_value>=2.0)?1.9:(dwell_value<=0)?0.1:dwell_value;
+          //dwell_value = parseFloat(dwell_value).toFixed(1);
           url+=`;dwell=${dwell_value}`;
         }
-        
-        let url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed`;
         if (prop != undefined){
           url+=`;prop=${prop.value}`;
         }
@@ -81,6 +80,10 @@ app.post('/interactions', async function (req, res) {
         if (camangle != undefined){
           url+=`;camangle=${camangle.value}`;
         }
+        if (hands != undefined){
+          url+=`;hands=${hands.value}`;
+        }
+        
         console.log(url);
         const response = await fetch(url);
         const html = await response.text();

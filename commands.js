@@ -39,7 +39,8 @@ const siteswaps = new SlashCommandBuilder()
     {name:"Balles",value:"ball"},
     {name:"Anneaux",value:"ring"}))
   .addStringOption(option => option.setName('camangle').setDescription("Angle caméra (hauteur, angle); ex: (0,110) ou (10,75)"))
-  .addBooleanOption(option => option.setName('stereo').setDescription("Activer l'affichage stereoscopique"));
+  .addBooleanOption(option => option.setName('stereo').setDescription("Activer l'affichage stereoscopique"))
+  .addStringOption(option => option.setName('hands').setDescription());
 
 
 //const SITESWAPS_COMMAND = siteswaps.toJson();

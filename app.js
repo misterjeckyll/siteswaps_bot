@@ -67,12 +67,11 @@ app.post('/interactions', async function (req, res) {
         if (dwell!= undefined){
           dwell_value = dwell.value;
           dwell_value = (dwell_value>=2.0)?1.9:(dwell_value<=0)?0.1:dwell_value;
-          dwell_value = dwell_value.toFixed(1);
-        }else{
-          dwell_value = "1.3";
+          dwell_value = parseFloat(dwell_value).toFixed(1);
+          url+=`;dwell=${dwell_value}`;
         }
         
-        let url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed;dwell=${dwell_value}`;
+        let url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed`;
         if (prop != undefined){
           url+=`;prop=${prop.value}`;
         }

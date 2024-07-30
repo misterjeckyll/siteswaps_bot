@@ -67,7 +67,7 @@ app.post('/interactions', async function (req, res) {
         if (dwell!= undefined){
           dwell_value = dwell.value;
           dwell_value = (dwell_value>=2.0)?1.9:(dwell_value<=0)?0.1:dwell_value;
-          dwell_value = (dwell_value).toFixed(1).toString();
+          dwell_value = dwell_value.toFixed(1);
         }else{
           dwell_value = "1.3";
         }

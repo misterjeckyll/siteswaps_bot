@@ -55,7 +55,7 @@ app.post('/interactions', async function (req, res) {
           type:InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
         });
         const userId = req.body.member.user.id;
-        const username = await getUsername(userId, process.env.DISCORD_TOKEN);
+        const [username, avatar] = await getUsername(userId, process.env.DISCORD_TOKEN);
         //console.log(req.body.data.options);
         
         let options = req.body.data.options;
@@ -73,7 +73,7 @@ app.post('/interactions', async function (req, res) {
           .setColor(0x0099FF)
           .setTitle(`Génération d'un Siteswaps`)
           .setURL('https://jugglinglab.org/html/animinfo.html')
-          .setAuthor({ name: username, iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+          .setAuthor({ name: username, iconURL: avatar, url: 'https://discord.js.org' })
           .setDescription(pattern)
           .setFooter({ text: 'Basé sur le générateur jugglinglab.org', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
 

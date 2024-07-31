@@ -137,5 +137,5 @@ export async function getUsername(userId, token) {
     throw new Error(`Discord API request failed: ${res.statusText}`);
   }
   const userData = await res.json();
-  return userData.username;
+  return [userData.global_name, `https://cdn.discordapp.com/avatars/${userId}/${userData.avatar}.png`];
 }

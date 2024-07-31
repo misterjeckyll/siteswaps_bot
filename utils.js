@@ -71,11 +71,8 @@ export function capitalize(str) {
 export async function sendDeferredMessage(appId, token, data) {
   const endpoint = `webhooks/${appId}/${token}`;
   const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      embed: data,
   };
   await DiscordRequest(endpoint, options);
 }

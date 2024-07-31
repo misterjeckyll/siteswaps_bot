@@ -126,7 +126,9 @@ app.post('/interactions', async function (req, res) {
           
           // content: `Génération du Siteswaps ${pattern}`,
           
-          await sendDeferredMessage(process.env.APP_ID, req.body,)
+          await sendDeferredMessage(process.env.APP_ID, req.body.token, {
+            embed: [siteswap_embed],
+          });
           
         } else {
           // await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}`, {

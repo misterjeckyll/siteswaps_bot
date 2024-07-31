@@ -68,11 +68,31 @@ export function capitalize(str) {
  * @param {object} data - The data to send in the final response
  * @returns {Promise<void>}
  */
-export async function sendDeferredMessage(appId, token, data) {
+export async function sendDeferredMessage(appId, token, embed) {
+  const url = `https://discord.com/api/v10/webhooks/${appId}/${token}`;
+  // Stringify payloads
+  // Use node-fetch to make requests
+  const res = await fetch(url, {
+    headers: {
+      Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
+      'Content-Type': 'application/json; charset=UTF-8',
+      'User-Agent': 'DiscordBot (https://github.com/discord/discord-example-app, 1.0.0)',
+    },
+    
+  });
+  // throw API errors
+  if (!res.ok) {
+    const data = await res.json();
+    console.log(res.status);
+    throw new Error(JSON.stringify(data));
+  }
+  // return original response
+  return res;
   const endpoint = `webhooks/${appId}/${token}`;
   const options = {
-    body: JSON.stringify({
-      embed: data,
-  };
+    data: JSON.stringify({
+      embeds: [embed],
+  })
+  }
   await DiscordRequest(endpoint, options);
 }

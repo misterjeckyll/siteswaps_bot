@@ -7,7 +7,7 @@ import {
   MessageComponentTypes,
   ButtonStyleTypes,
 } from 'discord-interactions';
-import { VerifyDiscordRequest, getRandomEmoji, DiscordRequest, sendDeferredMessage } from './utils.js';
+import { VerifyDiscordRequest, getRandomEmoji, DiscordRequest, sendDeferredMessage, getUsername } from './utils.js';
 import { getShuffledOptions, getResult } from './game.js';
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
@@ -55,7 +55,7 @@ app.post('/interactions', async function (req, res) {
           type:InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
         });
         const userId = req.body.member.user.id;
-        const username = req.body.member.user.global_name;
+        const username = await getUsername(userId, process.env.DISCORD_TOKEN);
         //console.log(req.body.data.options);
         
         let options = req.body.data.options;

@@ -38,7 +38,7 @@ const siteswaps = new SlashCommandBuilder()
   .addStringOption(option => option.setName('prop').setDescription("type d'objet lancé").addChoices(
     {name:"Balles",value:"ball"},
     {name:"Anneaux",value:"ring"}))
-  .addStringOption(option => option.setName('camangle').setDescription("Angle caméra (hauteur, angle); ex: (0,110) ou (10,75)"))
+  .addStringOption(option => option.setName('camangle').setDescription("Angle caméra (rotation, hauteur); ex: (0,90) ou (10,100)"))
   .addBooleanOption(option => option.setName('stereo').setDescription("Activer l'affichage stereoscopique"))
   .addStringOption(option => option.setName('hands').setDescription("Coordonnées de mouvement des mains"))
   .addStringOption(option => option.setName('titre').setDescription("Titre du siteswaps à afficher"));

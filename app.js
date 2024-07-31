@@ -51,6 +51,9 @@ app.post('/interactions', async function (req, res) {
         message(res, 'hello world ' + getRandomEmoji());
         break;
       case 'ss':
+        await res.send({
+          type:InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE
+        });
         const userId = req.body.member.user.id;
         const username = req.body.member.user.global_name;
         //console.log(req.body.data.options);

@@ -7,7 +7,7 @@ import {
   MessageComponentTypes,
   ButtonStyleTypes,
 } from 'discord-interactions';
-import { VerifyDiscordRequest, getRandomEmoji, DiscordRequest } from './utils.js';
+import { VerifyDiscordRequest, getRandomEmoji, DiscordRequest, sendDeferredMessage } from './utils.js';
 import { getShuffledOptions, getResult } from './game.js';
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
@@ -53,7 +53,6 @@ app.post('/interactions', async function (req, res) {
       case 'ss':
         await res.send({
           type:InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
-          content:"Envoi de la commande à juglinglab.org..."
         });
         const userId = req.body.member.user.id;
         const username = req.body.member.user.global_name;
@@ -127,19 +126,7 @@ app.post('/interactions', async function (req, res) {
           
           // content: `Génération du Siteswaps ${pattern}`,
           
-          await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}`, {
-            method:"POST",
-              body:JSON.stringify({
-                type:InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                data: {
-                  //embeds: [siteswap_embed],
-                  content: "resultat"
-                },
-              }),
-              headers: {
-                'Content-type':'application/json'
-              }
-          });
+          await sendDeferredMessage(process.env.APP_ID, req.body,)
           
         } else {
           // await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}`, {

@@ -60,3 +60,22 @@ export function getRandomEmoji() {
 export function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+/*
+**
+ * Utility function to handle deferred messages
+ * @param {string} appId - The application ID
+ * @param {string} token - The interaction token
+ * @param {object} data - The data to send in the final response
+ * @returns {Promise<void>}
+ */
+export async function sendDeferredMessage(appId, token, data) {
+  const endpoint = `webhooks/${appId}/${token}`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  };
+  await DiscordRequest(endpoint, options);
+}

@@ -65,24 +65,32 @@ app.post('/interactions', async function (req, res) {
         let stereo = options.filter(option=>option["name"] == "stereo")[0];
         let hands = options.filter(option=>option["name"] == "hands")[0];
       
-                
+        const siteswap_embed = new EmbedBuilder()
+          .setColor(0x0099FF)
+          .setTitle(`Génération d'un Siteswaps`)
+          .setURL('https://jugglinglab.org/html/animinfo.html')
+          .setAuthor({ name: username, iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+          .setDescription(pattern)
 
         let url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed`;
-        let dwell_value;
+        
         if (dwell!= undefined){
-          dwell_value = dwell.value;
           //dwell_value = (dwell_value>=2.0)?1.9:(dwell_value<=0)?0.1:dwell_value;
           //dwell_value = parseFloat(dwell_value).toFixed(1);
-          url+=`;dwell=${dwell_value}`;
+          
+          url+=`;dwell=${dwell.value}`;
+          siteswap_embed.addFields({ name: "Dwell :", value: dwell.value, inline: true })
         }
         if (prop != undefined){
           url+=`;prop=${prop.value}`;
+          siteswap_embed.addFields({ name: "Prop :", value: prop.value, inline: true });
         }
         if (stereo!=undefined){
           url+=`;stereo=${stereo.value}`;
         }
         if (camangle != undefined){
           url+=`;camangle=${camangle.value}`;
+          siteswap_embed.addFields({ name: "Camera angle :", value: camangle.value, inline: true });
         }
         if (hands != undefined){
           url+=`;hands=${hands.value}`;
@@ -99,6 +107,8 @@ app.post('/interactions', async function (req, res) {
           //ss_record.push('${userId}-${pattern}');
           
           const gifUrl = imgElement.src;
+          
+          siteswap_embed.setImage(gifUrl);
           //const user = await client.fetch_user(userId);
           //const avatarUrl = user.displayAvatarURL({ format: 'png', dynamic: true });
           
@@ -112,15 +122,6 @@ app.post('/interactions', async function (req, res) {
           .setTimestamp()
           .setFooter({ text: 'Basé sur le générateur jugglinglab.org', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
           
-          if(dwell!=undefined){
-            siteswap_embed.addFields({ name: "Dwell :", value: dwell_value, inline: true })
-          }
-          if(prop != undefined){
-            siteswap_embed.addFields({ name: "Prop :", value: prop.value, inline: true })
-          }
-          if(camangle != undefined){
-            siteswap_embed.addFields({ name: "Camera angle :", value: camangle.value, inline: true })
-          }
           // content: `Génération du Siteswaps ${pattern}`,
           
           await res.send({

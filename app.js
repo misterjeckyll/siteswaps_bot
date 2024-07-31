@@ -52,7 +52,8 @@ app.post('/interactions', async function (req, res) {
         break;
       case 'ss':
         await res.send({
-          type:InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE
+          type:InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
+          content
         });
         const userId = req.body.member.user.id;
         const username = req.body.member.user.global_name;
@@ -126,15 +127,26 @@ app.post('/interactions', async function (req, res) {
           
           // content: `Génération du Siteswaps ${pattern}`,
           
-          await res.send({
-            type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-            data: {
-              embeds: [siteswap_embed],
-            },
+          await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}`, {
+            method:"POST",
+            body:{
+              type:InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+              data: {
+                embeds: [siteswap_embed],
+              },
+            }
           });
           
         } else {
-          message(res, `Commande ${url} incorrecte`);
+          await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}`, {
+            method:"POST",
+            body:{
+              type:InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+              data: {
+                content: `Commande ${url} incorrecte`,
+              },
+            }
+          });
         }
 
         break;

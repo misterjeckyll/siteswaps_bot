@@ -64,6 +64,7 @@ app.post('/interactions', async function (req, res) {
         let camangle = options.filter(option=>option["name"] == "camangle")[0];
         let stereo = options.filter(option=>option["name"] == "stereo")[0];
         let hands = options.filter(option=>option["name"] == "hands")[0];
+        let titre = options.filter(option=>option["name"] == "titre")[0];
       
         const siteswap_embed = new EmbedBuilder()
           .setColor(0x0099FF)
@@ -99,6 +100,10 @@ app.post('/interactions', async function (req, res) {
           url+=`;hands=${hands.value}`;
           siteswap_embed.addFields({ name: "Hands :", value: hands.value, inline: true });
         }
+        if(titre != undefined){
+          siteswap_embed.setTitle(titre.value);
+        }
+        console.log(url);
 
         const response = await fetch(url);
         const html = await response.text();

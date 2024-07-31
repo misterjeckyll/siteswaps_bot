@@ -73,12 +73,15 @@ export async function sendDeferredMessage(appId, token, embed) {
   // Stringify payloads
   // Use node-fetch to make requests
   const res = await fetch(url, {
+    method:'POST',
     headers: {
       Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
       'Content-Type': 'application/json; charset=UTF-8',
       'User-Agent': 'DiscordBot (https://github.com/discord/discord-example-app, 1.0.0)',
     },
-    
+    body: JSON.stringify({
+      embeds: [embed],
+    })
   });
   // throw API errors
   if (!res.ok) {
@@ -86,13 +89,29 @@ export async function sendDeferredMessage(appId, token, embed) {
     console.log(res.status);
     throw new Error(JSON.stringify(data));
   }
-  // return original response
   return res;
-  const endpoint = `webhooks/${appId}/${token}`;
+
+}
+
+/**
+ * Utility function to get the username for a given user ID
+ * @param {string} userId - The user ID to fetch the username for
+ * @param {string} token - The bot token for authentication
+ * @returns {Promise<string>} - The username of the user
+ */
+export async function getUsername(userId, token) {
+  const endpoint = `https://discord.com/api/v9/users/${userId}`;
   const options = {
-    data: JSON.stringify({
-      embeds: [embed],
-  })
+    method: 'GET',
+    headers: {
+      'Authorization': `Bot ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const res = await fetch(endpoint, options);
+  if (!res.ok) {
+    throw new Error(`Discord API request failed: ${res.statusText}`);
   }
-  await DiscordRequest(endpoint, options);
+  const userData = await res.json();
+  return userData.username;
 }

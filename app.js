@@ -129,6 +129,7 @@ app.post('/interactions', async function (req, res) {
           await sendDeferredMessage(process.env.APP_ID, req.body.token, siteswap_embed);
           
         } else {
+          console.log("erreur dans la commande");
           // await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}`, {
           //   method:"POST",
           //   body: {

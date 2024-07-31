@@ -53,20 +53,26 @@ app.post('/interactions', async function (req, res) {
       case 'ss':
         const userId = req.body.member.user.id;
         const username = req.body.member.user.global_name;
-        const pattern = req.body.data.options[0].value;
-
-        let dwell = req.body.data.options[1];
-        let prop = req.body.data.options[2];
-        let camangle = req.body.data.options[3];
-        let stereo = req.body.data.options[4];
-        let hands = req.body.data.options[5];
-        let stereo_value;
+        console.log(req.body.data.options);
         
+        let options = req.body.data.options;
+        
+        
+        const pattern = options.filter(option=>option["name"] == "pattern");
+        let dwell = options.filter(option=>option["name"] == "dwell");
+        let prop = options.filter(option=>option["name"] == "prop");
+        let camangle = options.filter(option=>option["name"] == "camangle");
+        let stereo = options.filter(option=>option["name"] == "stereo");
+        let hands = options.filter(option=>option["name"] == "hands");
+        
+        console.log(pattern);
+        console.log(hands);
+                
 
         let url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed`;
-        
+        let dwell_value;
         if (dwell!= undefined){
-          let dwell_value = dwell.value;
+          dwell_value = dwell.value;
           //dwell_value = (dwell_value>=2.0)?1.9:(dwell_value<=0)?0.1:dwell_value;
           //dwell_value = parseFloat(dwell_value).toFixed(1);
           url+=`;dwell=${dwell_value}`;
@@ -83,8 +89,7 @@ app.post('/interactions', async function (req, res) {
         if (hands != undefined){
           url+=`;hands=${hands.value}`;
         }
-        
-        console.log(url);
+
         const response = await fetch(url);
         const html = await response.text();
         const dom = new JSDOM(html);

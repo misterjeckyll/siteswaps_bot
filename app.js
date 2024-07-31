@@ -53,7 +53,7 @@ app.post('/interactions', async function (req, res) {
       case 'ss':
         await res.send({
           type:InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
-          content
+          content:"Envoi de la commande à juglinglab.org..."
         });
         const userId = req.body.member.user.id;
         const username = req.body.member.user.global_name;
@@ -140,11 +140,14 @@ app.post('/interactions', async function (req, res) {
         } else {
           await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}`, {
             method:"POST",
-            body:{
+            body: JSON.stringify({
               type:InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
               data: {
                 content: `Commande ${url} incorrecte`,
               },
+            }),
+            headers: {
+              'Content-type':'application/json'
             }
           });
         }

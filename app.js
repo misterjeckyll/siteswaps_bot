@@ -71,6 +71,8 @@ app.post('/interactions', async function (req, res) {
           .setURL('https://jugglinglab.org/html/animinfo.html')
           .setAuthor({ name: username, iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
           .setDescription(pattern)
+          .setFooter({ text: 'Basé sur le générateur jugglinglab.org', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
+
 
         let url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed`;
         
@@ -87,6 +89,7 @@ app.post('/interactions', async function (req, res) {
         }
         if (stereo!=undefined){
           url+=`;stereo=${stereo.value}`;
+          siteswap_embed.addFields({ name: "Stereo :", value: stereo.value, inline: true });
         }
         if (camangle != undefined){
           url+=`;camangle=${camangle.value}`;
@@ -94,6 +97,7 @@ app.post('/interactions', async function (req, res) {
         }
         if (hands != undefined){
           url+=`;hands=${hands.value}`;
+          siteswap_embed.addFields({ name: "Hands :", value: hands.value, inline: true });
         }
 
         const response = await fetch(url);
@@ -111,16 +115,6 @@ app.post('/interactions', async function (req, res) {
           siteswap_embed.setImage(gifUrl);
           //const user = await client.fetch_user(userId);
           //const avatarUrl = user.displayAvatarURL({ format: 'png', dynamic: true });
-          
-          const siteswap_embed = new EmbedBuilder()
-          .setColor(0x0099FF)
-          .setTitle(`Génération d'un Siteswaps`)
-          .setURL('https://jugglinglab.org/html/animinfo.html')
-          .setAuthor({ name: username, iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
-          .setDescription(pattern)
-          .setImage(gifUrl)
-          .setTimestamp()
-          .setFooter({ text: 'Basé sur le générateur jugglinglab.org', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
           
           // content: `Génération du Siteswaps ${pattern}`,
           

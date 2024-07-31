@@ -129,27 +129,31 @@ app.post('/interactions', async function (req, res) {
           
           await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}`, {
             method:"POST",
-            body:{
-              type:InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-              data: {
-                embeds: [siteswap_embed],
-              },
-            }
+              body:JSON.stringify({
+                type:InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                data: {
+                  //embeds: [siteswap_embed],
+                  content: "resultat"
+                },
+              }),
+              headers: {
+                'Content-type':'application/json'
+              }
           });
           
         } else {
-          await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}`, {
-            method:"POST",
-            body: JSON.stringify({
-              type:InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-              data: {
-                content: `Commande ${url} incorrecte`,
-              },
-            }),
-            headers: {
-              'Content-type':'application/json'
-            }
-          });
+          // await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}`, {
+          //   method:"POST",
+          //   body: {
+          //     type:InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          //     data: {
+          //       content: `Commande ${url} incorrecte`,
+          //     },
+          //   },
+          //   headers: {
+          //     'Content-type':'application/json'
+          //   }
+          // });
         }
 
         break;

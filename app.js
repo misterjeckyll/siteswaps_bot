@@ -104,7 +104,6 @@ app.post('/interactions', async function (req, res) {
           siteswap_embed.setTitle(titre.value);
         }
         console.log(url);
-        await interaction.deferReply();
 
         const response = await fetch(url);
         const html = await response.text();

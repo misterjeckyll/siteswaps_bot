@@ -7,7 +7,7 @@ import {
   MessageComponentTypes,
   ButtonStyleTypes,
 } from 'discord-interactions';
-import { VerifyDiscordRequest, getRandomEmoji, DiscordRequest, sendDeferredMessage, getUsername } from './utils.js';
+import { VerifyDiscordRequest, getRandomEmoji, DiscordRequest, sendDeferredMessage, getUsername, sendDeferredembed } from './utils.js';
 import { getShuffledOptions, getResult } from './game.js';
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
@@ -126,22 +126,10 @@ app.post('/interactions', async function (req, res) {
           
           // content: `Génération du Siteswaps ${pattern}`,
           
-          await sendDeferredMessage(process.env.APP_ID, req.body.token, siteswap_embed);
+          await sendDeferredembed(process.env.APP_ID, req.body.token, siteswap_embed);
           
         } else {
-          console.log("erreur dans la commande");
-          // await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}`, {
-          //   method:"POST",
-          //   body: {
-          //     type:InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          //     data: {
-          //       content: `Commande ${url} incorrecte`,
-          //     },
-          //   },
-          //   headers: {
-          //     'Content-type':'application/json'
-          //   }
-          // });
+          await sendDeferredMessage(process.env.APP_ID, req.body.token, `Commande ${url} incorrecte ou pattern impossible`);
         }
 
         break;

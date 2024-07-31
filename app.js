@@ -53,20 +53,18 @@ app.post('/interactions', async function (req, res) {
       case 'ss':
         const userId = req.body.member.user.id;
         const username = req.body.member.user.global_name;
-        console.log(req.body.data.options);
+        //console.log(req.body.data.options);
         
         let options = req.body.data.options;
         
         
-        const pattern = options.filter(option=>option["name"] == "pattern");
-        let dwell = options.filter(option=>option["name"] == "dwell");
-        let prop = options.filter(option=>option["name"] == "prop");
-        let camangle = options.filter(option=>option["name"] == "camangle");
-        let stereo = options.filter(option=>option["name"] == "stereo");
-        let hands = options.filter(option=>option["name"] == "hands");
-        
-        console.log(pattern);
-        console.log(hands);
+        const pattern = options.filter(option=>option["name"] == "pattern")[0].value;
+        let dwell = options.filter(option=>option["name"] == "dwell")[0];
+        let prop = options.filter(option=>option["name"] == "prop")[0];
+        let camangle = options.filter(option=>option["name"] == "camangle")[0];
+        let stereo = options.filter(option=>option["name"] == "stereo")[0];
+        let hands = options.filter(option=>option["name"] == "hands")[0];
+      
                 
 
         let url = `https://jugglinglab.org/anim?pattern=${pattern};colors=mixed`;

@@ -1,6 +1,6 @@
-# Getting Started app for Discord
+# Siteswaps app for Discord
 
-This project contains a basic rock-paper-scissors-style Discord app written in JavaScript, built for the [getting started guide](https://discord.com/developers/docs/getting-started).
+This project is based on the [getting started guide](https://discord.com/developers/docs/getting-started). It contains a siteswaps command builder in JS for jugglinglab.org and send back to discord the generated gifs.
 
 ![Demo of app](https://github.com/discord/discord-example-app/raw/main/assets/getting-started-demo.gif?raw=true)
 
